@@ -13,7 +13,7 @@ func ParserCityList(contents []byte) engine.ParserResult {
 
 	result := engine.ParserResult{}
 
-	limitCount := 0
+	//limitCount := 0
 
 	for _, m := range matchs {
 		result.Items = append(result.Items, string(m[2]))
@@ -22,10 +22,10 @@ func ParserCityList(contents []byte) engine.ParserResult {
 				Url:       string(m[1]),
 				ParserFun: ParserCity,
 			})
-		limitCount++
-		if limitCount > 3 {
-			break
-		}
+		// limitCount++
+		// if limitCount > 3 {
+		// 	break
+		// }
 		//fmt.Printf("city: %s  url: %s\n", m[2], m[1])
 	}
 	//fmt.Println("matchs count: ", len(matchs))

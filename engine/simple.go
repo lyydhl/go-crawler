@@ -6,7 +6,9 @@ import (
 	"log"
 )
 
-func Run(seed ...Request) {
+type SimpleEngine struct{}
+
+func (e SimpleEngine) Run(seed ...Request) {
 	var requests []Request
 
 	// for _, r := range seed {
@@ -18,17 +20,25 @@ func Run(seed ...Request) {
 		r := requests[0]
 		requests = requests[1:]
 
-		body, err := fetcher.Fetch(r.Url)
+		parserResult, err := worker(r)
 		if err != nil {
-			log.Printf("Fetch error Fecth Url %s: %v", r.Url, err)
 			continue
 		}
 
-		parserResult := r.ParserFun(body)
 		requests = append(requests, parserResult.Requests...)
 
 		for _, item := range parserResult.Items {
 			fmt.Printf("Got item %v\n", item)
 		}
 	}
+}
+
+func worker(r Request) (ParserResult, error) {
+	body, err := fetcher.Fetch(r.Url)
+	if err != nil {
+		log.Printf("Fetch error Fecth Url %s: %v", r.Url, err)
+		return ParserResult{}, err
+	}
+
+	return r.ParserFun(body), nil
 }
