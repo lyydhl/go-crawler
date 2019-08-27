@@ -15,6 +15,7 @@ package model
 
 type Profile struct {
 	Name      string //名字
+	Avatar    string //头像
 	Address   string //地址
 	Age       int    //年龄
 	Education string //教育

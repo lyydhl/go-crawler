@@ -46,12 +46,13 @@ import (
 
 const proRe = `<div class="des f-cl"[^>]*>([^<]+)</div>`
 
-func ParserProfile(contents []byte, name string) engine.ParserResult {
+func ParserProfile(contents []byte, name string, avatar string) engine.ParserResult {
 	re := regexp.MustCompile(proRe)
 	matchs := re.FindAllSubmatch(contents, -1)
 
 	profile := model.Profile{}
 	profile.Name = name
+	profile.Avatar = avatar
 
 	for _, m := range matchs {
 		body := m[1]
