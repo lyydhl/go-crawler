@@ -23,7 +23,7 @@ func ParserCityList(contents []byte) engine.ParserResult {
 				ParserFun: ParserCity,
 			})
 		limitCount++
-		if limitCount > 10 {
+		if limitCount > 3 {
 			break
 		}
 		//fmt.Printf("city: %s  url: %s\n", m[2], m[1])
